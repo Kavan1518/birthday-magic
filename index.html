@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Magic</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="bg-hearts" id="bg-hearts"></div>
+
+    <div id="admin-trigger" onclick="showAdminPrompt()">⚙️</div>
+
+    <div class="main-wrapper">
+        
+        <div id="lockscreen-section" class="card-container animate-fade">
+            <h1 class="fancy-title">The Magic is Loading...</h1>
+            <p>Something big and special is waiting for you inside. Just a little more patience! ✨</p>
+            
+            <div id="countdown-timer">
+                <div class="timer-unit"><span id="days">00</span><small>Days</small></div>
+                <div class="timer-unit"><span id="hours">00</span><small>Hours</small></div>
+                <div class="timer-unit"><span id="mins">00</span><small>Mins</small></div>
+                <div class="timer-unit"><span id="secs">00</span><small>Secs</small></div>
+            </div>
+
+            <p class="hint-text">Hint: The flight from Gondal to Patan arrives soon... ✈️</p>
+            <div id="unlock-btn-container" class="hidden">
+                <button class="main-btn pulse" onclick="nextSection('lockscreen-section', 'intro-section')">Open Your Gift 🎁</button>
+            </div>
+        </div>
+
+        <div id="intro-section" class="card-container hidden animate-fade">
+            <h1 class="fancy-title">Happy Birthday, Beautiful! 🎂</h1>
+            <div class="start-photos">
+                <img src="a4.jpeg" class="mini-photo p1">
+                <img src="a7.jpeg" class="mini-photo p2">
+                <img src="a2.jpeg" class="mini-photo p3">
+            </div>
+            <p>I created something magical just for you on your special day.</p>
+            <button class="main-btn" onclick="nextSection('intro-section', 'letter-section')">Let's Gooo ✨</button>
+        </div>
+
+        <div id="letter-section" class="card-container hidden animate-fade">
+            <h3 class="header-title">A Birthday Love Letter</h3>
+            <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
+                <img src="a1.jpeg" class="envelope-img">
+                <div class="envelope-overlay">
+                    <div class="heart-icon">❤️</div>
+                    <p>Click to Open 💌</p>
+                </div>
+            </div>
+            <div id="letter-content" class="letter-paper hidden">
+                <h2 class="fancy-title">To My Princess</h2>
+                <div id="typewriter-text" class="typewriter-box"></div>
+                <button id="letter-btn" class="main-btn hidden" onclick="nextSection('letter-section', 'wish-section')">Continue »</button>
+            </div>
+        </div>
+
+        <div id="wish-section" class="card-container music-card hidden animate-fade">
+            <h3 class="header-title">🎶 Birthday Playlist</h3>
+            <p id="now-playing" class="now-playing-text">Select a song to play</p>
+            <div class="disk-wrapper">
+                <div class="beat-ring r1"></div>
+                <div class="beat-ring r2"></div>
+                <div class="vinyl-disk" id="vinyl-disk">
+                    <div class="disk-grooves"></div>
+                    <div class="disk-label">
+                        <video src="a6.mp4" class="disk-center-video" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+            </div>
+            <div class="playlist-container">
+                <div class="song-item" onclick="playSong(0, 'Tum Hi Ho')">▶ Tum Hi Ho</div>
+                <div class="song-item" onclick="playSong(1, 'Mast Magan')">▶ Mast Magan</div>
+            </div>
+            <button class="main-btn" onclick="nextSection('wish-section', 'cards-section')">Reveal Wishes 💖</button>
+            <audio id="audio0" src="song1.mp3" loop></audio>
+            <audio id="audio1" src="song2.mp3" loop></audio>
+        </div>
+
+        <div id="cards-section" class="card-container hidden animate-fade">
+            <h3 class="header-title">Memories & Wishes ✨</h3>
+            <div class="wish-grid">
+                <div class="wish-card" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="p1.png" class="card-bg-img">
+                            <span class="card-text">Memory 1 🌸</span>
+                        </div>
+                        <div class="card-back">
+                            <p>You make every day feel like a celebration!</p>
+                            <p class="tap-hint">Tap to flip back</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="wish-card" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="p2.png" class="card-bg-img">
+                            <span class="card-text">Memory 2 🌟</span>
+                        </div>
+                        <div class="card-back">
+                            <p>May all your biggest dreams come true!</p>
+                            <p class="tap-hint">Tap to flip back</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="final-btn" class="main-btn hidden" onclick="celebrate()">Final Note 🔑</button>
+        </div>
+
+        <div id="final-section" class="card-container hidden animate-fade">
+            <h2 class="fancy-title">Forever Yours</h2>
+            <div class="letter-paper">
+                <p>Happy Birthday, my love! 💋</p>
+                <p>Enjoy your special day to the fullest.</p>
+            </div>
+            <button class="restart-btn" onclick="restartExperience()">Relive the Magic ✨</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
