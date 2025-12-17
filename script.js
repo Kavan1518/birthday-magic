@@ -1,8 +1,18 @@
 // --- CONFIGURATION ---
 // SET BIRTHDAY DATE HERE (Year, Month Index 0-11, Day, Hour, Minute)
 // Note: January is 0, December is 11.
-const birthdayDate = new Date(2026, 0, 28, 0, 0, 0); // Dec 25, 2025 00:00:00
+const birthdayDate = new Date(2026, 0, 28, 0, 0, 0); 
 const adminPass = "151809"; // Your secret bypass code
+
+// --- DYNAMIC HINTS ---
+const birthdayHints = [
+    "The flight from Gondal to Patan is in the air... ✈️",
+    "Something beautiful is being prepared just for you. 🌸",
+    "Miles mean nothing today. The surprise is traveling fast! 🏠",
+    "Warning: High levels of bestie magic detected! ✨",
+    "Only a true best friend can handle what's inside... 🤨",
+    "Gondal is sending a special package to Patan... 🎁"
+];
 
 let currentAudio = null;
 let cardsFlippedSet = new Set();
@@ -139,7 +149,19 @@ function celebrate() {
 
 function restartExperience() { location.reload(); }
 
+// 9. DYNAMIC HINT FUNCTION
+function setRandomHint() {
+    const hintElement = document.querySelector(".hint-text");
+    if (hintElement) {
+        const randomIndex = Math.floor(Math.random() * birthdayHints.length);
+        hintElement.innerText = "Hint: " + birthdayHints[randomIndex];
+    }
+}
+
 // INITIALIZE
-createHearts();
-setInterval(updateTimer, 1000);
-updateTimer();
+window.onload = function() {
+    setRandomHint();
+    createHearts();
+    setInterval(updateTimer, 1000);
+    updateTimer();
+};
