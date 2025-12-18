@@ -91,13 +91,21 @@ document.addEventListener('touchstart', (e) => {
     }
 });
 
-// --- UPDATED: Transition to Reasons (Music Keeps Playing) ---
+// --- MUSIC NAVIGATION ---
 function goToReasons() {
-    // REMOVED: currentAudio.pause() so music continues
     nextSection('wish-section', 'reasons-section');
     initReasons(); 
 }
 
+function goBackToMusic(currentId) {
+    document.getElementById(currentId).classList.add('hidden');
+    const musicSection = document.getElementById('wish-section');
+    musicSection.classList.remove('hidden');
+    musicSection.classList.add('animate-fade');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// --- REASONS LOGIC ---
 function initReasons() {
     const stack = document.getElementById('reasons-stack');
     stack.innerHTML = '';
@@ -112,14 +120,11 @@ function initReasons() {
     });
 }
 
-// --- UPDATED: Next Reason with animation and confetti ---
 function nextReason() {
     const cards = document.querySelectorAll('.reason-card');
     if (currentReasonIndex < cards.length) {
-        // Apply swipe animation (Ensure .swiped is in your CSS)
         cards[currentReasonIndex].classList.add('swiped');
         
-        // Burst of heart confetti
         confetti({
             particleCount: 40,
             spread: 60,
@@ -138,7 +143,7 @@ function nextReason() {
     }
 }
 
-// --- Cake Cutting ---
+// --- CAKE LOGIC ---
 function blowCandles() {
     const flames = document.querySelectorAll('.flame');
     const instruction = document.getElementById('cake-instruction');
@@ -154,24 +159,9 @@ function blowCandles() {
     const end = Date.now() + (4 * 1000); 
 
     (function frame() {
-        confetti({
-            particleCount: 3,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: ['#ff69b4', '#ffffff', '#ffd700']
-        });
-        confetti({
-            particleCount: 3,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: ['#ff69b4', '#ffffff', '#ffd700']
-        });
-
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
+        confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff69b4', '#ffffff', '#ffd700'] });
+        confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff69b4', '#ffffff', '#ffd700'] });
+        if (Date.now() < end) requestAnimationFrame(frame);
     }());
 
     setTimeout(() => {
@@ -180,7 +170,7 @@ function blowCandles() {
     }, 2500);
 }
 
-// 6. LETTER LOGIC
+// --- LETTER LOGIC ---
 function openLetter() {
     document.getElementById('envelope').classList.add('hidden');
     document.getElementById('letter-content').classList.remove('hidden');
@@ -198,7 +188,7 @@ function openLetter() {
     type();
 }
 
-// 7. MUSIC LOGIC
+// --- UPDATED MUSIC LOGIC WITH AUTO-PLAY ---
 function playSong(index, name) {
     const audio = document.getElementById('audio' + index);
     const disk = document.getElementById('vinyl-disk');
@@ -210,7 +200,7 @@ function playSong(index, name) {
     } else {
         if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
         currentAudio = audio;
-        audio.play().catch(e => alert("Please interact with the page to play music."));
+        audio.play().catch(e => console.log("Click required for initial play"));
         disk.classList.add('spinning');
         document.getElementById('now-playing').innerText = "Playing: " + name;
         songItems.forEach(item => item.classList.remove('active-song'));
@@ -218,7 +208,20 @@ function playSong(index, name) {
     }
 }
 
-// 8. CARD LOGIC
+function setupAutoPlay() {
+    const totalSongs = 4;
+    for (let i = 0; i < totalSongs; i++) {
+        const audioTag = document.getElementById('audio' + i);
+        audioTag.onended = function() {
+            let nextIndex = i + 1;
+            if (nextIndex >= totalSongs) nextIndex = 0;
+            const nextName = document.querySelectorAll('.song-item')[nextIndex].innerText.replace('▶ ', '');
+            playSong(nextIndex, nextName);
+        };
+    }
+}
+
+// --- CARD LOGIC ---
 function flipCard(card) {
     card.classList.toggle('flipped');
     const cardIndex = Array.from(document.querySelectorAll('.wish-card')).indexOf(card);
@@ -231,17 +234,10 @@ function celebrate() {
     nextSection('cards-section', 'final-section');
 }
 
-function goBackToMusic(currentId) {
-    document.getElementById(currentId).classList.add('hidden');
-    const musicSection = document.getElementById('wish-section');
-    musicSection.classList.remove('hidden');
-    musicSection.classList.add('animate-fade');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 function restartExperience() { location.reload(); }
 
 // INITIALIZE
 createHearts();
 setInterval(updateTimer, 1000);
 updateTimer();
+setupAutoPlay();
