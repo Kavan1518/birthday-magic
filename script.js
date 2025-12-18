@@ -1,31 +1,26 @@
 // --- CONFIGURATION ---
-// SET BIRTHDAY DATE HERE (Year, Month Index 0-11, Day, Hour, Minute)
-// Note: January is 0, December is 11.
 const birthdayDate = new Date(2026, 0, 28, 0, 0, 0); 
-const adminPass = "151809"; // Your secret bypass code
-
-// --- DYNAMIC HINTS ---
-const birthdayHints = [
-    "The flight from Gondal to Patan is in the air... ✈️",
-    "Something beautiful is being prepared just for you. 🌸",
-    "Miles mean nothing today. The surprise is traveling fast! 🏠",
-    "Warning: High levels of bestie magic detected! ✨",
-    "Only a true best friend can handle what's inside... 🤨",
-    "Gondal is sending a special package to Patan... 🎁"
-];
+const adminPass = "151809"; 
 
 let currentAudio = null;
 let cardsFlippedSet = new Set();
 const totalCards = 2;
 
-// 1. COUNTDOWN TIMER LOGIC (Forces IST)
+const myReasons = [
+    { title: "Your Smile ✨", desc: "It has the power to brighten my darkest days instantly." },
+    { title: "Your Kindness 🌸", desc: "The way you care for everyone around you is so beautiful." },
+    { title: "Our Long Talks 📞", desc: "Distance doesn't matter when I'm hearing your voice." },
+    { title: "Your Support 🤝", desc: "Thank you for always believing in me, even when I don't." },
+    { title: "Just You ❤️", desc: "Because you are perfectly, wonderfully yourself." }
+];
+
+let currentReasonIndex = 0;
+
+// 1. COUNTDOWN TIMER LOGIC
 function updateTimer() {
     const now = new Date();
-    
-    // Convert current time to IST offset (UTC+5.5)
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const istNow = new Date(utc + (3600000 * 5.5));
-    
     const diff = birthdayDate - istNow;
 
     if (diff <= 0) {
@@ -82,7 +77,7 @@ function createHearts() {
     }, 500);
 }
 
-// 5. SPARKLES (iOS Optimized)
+// 5. SPARKLES
 document.addEventListener('touchstart', (e) => {
     for (let i = 0; i < 6; i++) {
         const sparkle = document.createElement('div');
@@ -96,11 +91,100 @@ document.addEventListener('touchstart', (e) => {
     }
 });
 
+// --- UPDATED: Transition to Reasons (Music Keeps Playing) ---
+function goToReasons() {
+    // REMOVED: currentAudio.pause() so music continues
+    nextSection('wish-section', 'reasons-section');
+    initReasons(); 
+}
+
+function initReasons() {
+    const stack = document.getElementById('reasons-stack');
+    stack.innerHTML = '';
+    currentReasonIndex = 0; 
+    
+    myReasons.forEach((reason, index) => {
+        const card = document.createElement('div');
+        card.className = 'reason-card';
+        card.style.zIndex = myReasons.length - index;
+        card.innerHTML = `<h4>${reason.title}</h4><p>${reason.desc}</p>`;
+        stack.appendChild(card);
+    });
+}
+
+// --- UPDATED: Next Reason with animation and confetti ---
+function nextReason() {
+    const cards = document.querySelectorAll('.reason-card');
+    if (currentReasonIndex < cards.length) {
+        // Apply swipe animation (Ensure .swiped is in your CSS)
+        cards[currentReasonIndex].classList.add('swiped');
+        
+        // Burst of heart confetti
+        confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { x: 0.5, y: 0.8 },
+            colors: ['#ff69b4', '#e91e63'],
+            shapes: ['circle']
+        });
+
+        currentReasonIndex++;
+
+        if (currentReasonIndex === cards.length) {
+            const nextBtn = document.getElementById('reasons-next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.classList.add('animate-fade');
+        }
+    }
+}
+
+// --- Cake Cutting ---
+function blowCandles() {
+    const flames = document.querySelectorAll('.flame');
+    const instruction = document.getElementById('cake-instruction');
+    const nextBtn = document.getElementById('cake-next-btn');
+
+    flames.forEach(f => {
+        f.style.transition = "opacity 0.5s ease";
+        f.style.opacity = "0";
+    });
+
+    instruction.innerHTML = "Wish granted! ✨";
+
+    const end = Date.now() + (4 * 1000); 
+
+    (function frame() {
+        confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#ff69b4', '#ffffff', '#ffd700']
+        });
+        confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#ff69b4', '#ffffff', '#ffd700']
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+
+    setTimeout(() => {
+        nextBtn.classList.remove('hidden');
+        nextBtn.classList.add('animate-fade');
+    }, 2500);
+}
+
 // 6. LETTER LOGIC
 function openLetter() {
     document.getElementById('envelope').classList.add('hidden');
     document.getElementById('letter-content').classList.remove('hidden');
-    const text = "My dearest Anuradha, today marks another year of your incredible existence. You bring so much joy and love into this world. You deserve all the magic today! ❤️";
+    const text = "My dearest Aaruu ✨, today marks another year of your incredible existence. You bring so much joy and love into this world. You deserve all the magic today! ❤️";
     let i = 0;
     function type() {
         if (i < text.length) {
@@ -114,7 +198,7 @@ function openLetter() {
     type();
 }
 
-// 7. MUSIC LOGIC (Required for iPhone User Interaction)
+// 7. MUSIC LOGIC
 function playSong(index, name) {
     const audio = document.getElementById('audio' + index);
     const disk = document.getElementById('vinyl-disk');
@@ -147,21 +231,17 @@ function celebrate() {
     nextSection('cards-section', 'final-section');
 }
 
-function restartExperience() { location.reload(); }
-
-// 9. DYNAMIC HINT FUNCTION
-function setRandomHint() {
-    const hintElement = document.querySelector(".hint-text");
-    if (hintElement) {
-        const randomIndex = Math.floor(Math.random() * birthdayHints.length);
-        hintElement.innerText = "Hint: " + birthdayHints[randomIndex];
-    }
+function goBackToMusic(currentId) {
+    document.getElementById(currentId).classList.add('hidden');
+    const musicSection = document.getElementById('wish-section');
+    musicSection.classList.remove('hidden');
+    musicSection.classList.add('animate-fade');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function restartExperience() { location.reload(); }
+
 // INITIALIZE
-window.onload = function() {
-    setRandomHint();
-    createHearts();
-    setInterval(updateTimer, 1000);
-    updateTimer();
-};
+createHearts();
+setInterval(updateTimer, 1000);
+updateTimer();
