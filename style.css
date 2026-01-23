@@ -534,3 +534,97 @@ body {
     background: rgba(255, 255, 255, 0.5);
     transform: scale(1.05);
 }
+
+/* --- NIGHT MESSAGE SECTION --- */
+.night-message {
+    background: linear-gradient(180deg, #0b1023, #151a3d);
+    color: #fff;
+}
+
+/* LONG STORY READABILITY FIX */
+.message-box {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;        /* ideal for mobile */
+    line-height: 1.9;          /* very important */
+    letter-spacing: 0.2px;
+    max-width: 520px;
+    margin: 0 auto 30px;
+}
+
+.message-box p {
+    margin-bottom: 22px;
+}
+
+.message-box .signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    margin-top: 30px;
+}
+
+/* ============================= */
+/* MEMORY FILM STRIP GALLERY 🎞️ */
+/* ============================= */
+
+.film-bg {
+    background: radial-gradient(circle at top, #141414, #070707);
+    color: #fff;
+}
+
+/* MAIN PHOTO */
+.film-viewer {
+    width: 100%;
+    max-width: 260px;
+    height: 340px;
+    margin: 20px auto 25px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.8),
+        0 0 30px rgba(255,215,150,0.2);
+}
+
+.film-viewer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* FILM STRIP */
+.film-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 12px 5px;
+    scrollbar-width: none;
+}
+
+.film-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.film-thumb {
+    min-width: 80px;
+    height: 110px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+
+.film-thumb.active {
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(255,215,150,0.8);
+}
+
+/* FILM GRAIN EFFECT */
+.film-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='1' cy='1' r='1' fill='white' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
