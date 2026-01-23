@@ -9,16 +9,17 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
     <div class="bg-hearts" id="bg-hearts"></div>
-
     <div id="admin-trigger" onclick="showAdminPrompt()">⚙️</div>
 
     <div class="main-wrapper">
 
+        <!-- LOCK SCREEN -->
         <div id="lockscreen-section" class="card-container animate-fade">
             <h1 class="fancy-title">The Magic is Loading...</h1>
             <p>Something big and special is waiting for you inside. Just a little more patience! ✨</p>
@@ -32,11 +33,13 @@
 
             <p class="hint-text">Hint: The flight from Gondal to Patan arrives soon... ✈️</p>
             <div id="unlock-btn-container" class="hidden">
-                <button class="main-btn pulse" onclick="nextSection('lockscreen-section', 'intro-section')">Open Your
-                    Gift 🎁</button>
+                <button class="main-btn pulse" onclick="nextSection('lockscreen-section','intro-section')">
+                    Open Your Gift 🎁
+                </button>
             </div>
         </div>
 
+        <!-- INTRO -->
         <div id="intro-section" class="card-container hidden animate-fade">
             <h1 class="fancy-title">Happy Birthday, Beautiful! 🎂</h1>
             <div class="start-photos">
@@ -45,11 +48,15 @@
                 <img src="a2.jpeg" class="mini-photo p3">
             </div>
             <p>I created something magical just for you on your special day.</p>
-            <button class="main-btn" onclick="nextSection('intro-section', 'letter-section')">Let's Gooo ✨</button>
+            <button class="main-btn" onclick="nextSection('intro-section','letter-section')">
+                Let's Gooo ✨
+            </button>
         </div>
 
+        <!-- LETTER -->
         <div id="letter-section" class="card-container hidden animate-fade">
             <h3 class="header-title">A Birthday Love Letter</h3>
+
             <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
                 <img src="a1.jpeg" class="envelope-img">
                 <div class="envelope-overlay">
@@ -57,17 +64,21 @@
                     <p>Click to Open 💌</p>
                 </div>
             </div>
+
             <div id="letter-content" class="letter-paper hidden">
                 <h2 class="fancy-title">To My Cutest Princess</h2>
                 <div id="typewriter-text" class="typewriter-box"></div>
-                <button id="letter-btn" class="main-btn hidden"
-                    onclick="nextSection('letter-section', 'wish-section')">Continue »</button>
+                <button id="letter-btn" class="main-btn hidden" onclick="nextSection('letter-section','wish-section')">
+                    Continue »
+                </button>
             </div>
         </div>
 
+        <!-- MUSIC -->
         <div id="wish-section" class="card-container music-card hidden animate-fade">
             <h3 class="header-title">🎶 Birthday Playlist For the Most Beautiful Girl</h3>
             <p id="now-playing" class="now-playing-text">Select a song to play</p>
+
             <div class="disk-wrapper">
                 <div class="beat-ring r1"></div>
                 <div class="beat-ring r2"></div>
@@ -78,37 +89,41 @@
                     </div>
                 </div>
             </div>
+
             <div class="playlist-container">
-                <div class="song-item" onclick="playSong(0, 'Birthday Special 1 💕')">▶ Birthday Special 1 💕</div>
-                <div class="song-item" onclick="playSong(1, 'Birthday Special 2 🌸')">▶ Birthday Special 2 🌸</div>
-                <div class="song-item" onclick="playSong(2, 'Birhtday Special 3 ✨')">▶ Birhtday Special 3 ✨</div>
-                <div class="song-item" onclick="playSong(3, 'Your Favourite 💖')">▶ For you 💖</div>
+                <div class="song-item" onclick="playSong(0,'Birthday Special 1 💕')">▶ Birthday Special 1 💕</div>
+                <div class="song-item" onclick="playSong(1,'Birthday Special 2 🌸')">▶ Birthday Special 2 🌸</div>
+                <div class="song-item" onclick="playSong(2,'Birhtday Special 3 ✨')">▶ Birhtday Special 3 ✨</div>
+                <div class="song-item" onclick="playSong(3,'Your Favourite ⚙️')">▶ Your Favourite ⚙️</div>
             </div>
+
             <button class="main-btn" onclick="goToReasons()">Our Special Reasons 💖</button>
-            <audio id="audio0" src="song3.mp3" ></audio>
-            <audio id="audio1" src="song4.mp3" ></audio>
-            <audio id="audio2" src="song5.mp3" ></audio>
-            <audio id="audio3" src="song1.mp3" ></audio>
+
+            <audio id="audio0" src="song3.mp3"></audio>
+            <audio id="audio1" src="song4.mp3"></audio>
+            <audio id="audio2" src="song5.mp3"></audio>
+            <audio id="audio3" src="song1.mp3"></audio>
         </div>
 
-
-
-
+        <!-- REASONS -->
         <div id="reasons-section" class="card-container hidden animate-fade">
             <button class="back-link-top" onclick="goBackToMusic('reasons-section')">⇠ Music</button>
             <h3 class="header-title">Why You're My Favorite ❤️</h3>
             <p>Tap the cards to reveal my heart...</p>
 
-            <div class="reasons-stack" id="reasons-stack" onclick="nextReason()">
-            </div>
+            <div class="reasons-stack" id="reasons-stack" onclick="nextReason()"></div>
 
             <button id="reasons-next-btn" class="main-btn hidden"
-                onclick="nextSection('reasons-section', 'cards-section')">See Our Memories ✨</button>
+                onclick="nextSection('reasons-section','cards-section')">
+                See Our Memories ✨
+            </button>
         </div>
 
+        <!-- MEMORY CARDS -->
         <div id="cards-section" class="card-container hidden animate-fade">
             <button class="back-link-top" onclick="goBackToMusic('cards-section')">⇠ Music</button>
             <h3 class="header-title">Memories & Wishes ✨</h3>
+
             <div class="wish-grid">
                 <div class="wish-card" onclick="flipCard(this)">
                     <div class="card-inner">
@@ -122,6 +137,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="wish-card" onclick="flipCard(this)">
                     <div class="card-inner">
                         <div class="card-front">
@@ -135,10 +151,56 @@
                     </div>
                 </div>
             </div>
-            <button id="final-btn" class="main-btn hidden" onclick="nextSection('cards-section', 'cake-section')">Make a
-                Wish! 🎂</button>
+
+            <!-- ✅ FIXED BUTTON -->
+            <button id="final-btn" class="main-btn hidden" onclick="nextSection('cards-section','message-section')">
+                Before the Memories ✨
+            </button>
         </div>
 
+        <!-- MESSAGE SECTION -->
+        <div id="message-section" class="card-container hidden animate-fade night-message">
+            <button class="back-link-top" onclick="goBackToMusic('message-section')">⇠ Music</button>
+
+            <h2 class="fancy-title">Just One Thing… And please akhu vachje oki and aram thi time kadhine vachje lambu che thoduk etle.</h2>
+
+            <div class="message-box">
+                <p>Before the photos, before the memories, I want you to know that jyare me tne peli var joyi ti tyare j i was like wowwww!! I mean your beauty is just out of this universe. Then me decide kryu ke mre vat krvi che but i was shy. And hiking ma jyare tne problems avti hti tyare mri tre always help krvi but hu mara group ma j rai jato to. But then me tri indirectly help kri and i was really happy about that. Then jyare tme loko tmari train mte nikdi gya ta tyare i was like ke hve hu hve kyarey nai mdi sku and it was all. But then i searched for your insta but tya bhi tre restrictions hti but still we continued on wp and a=everythin ws going fine. And i mean god helped me to get connected with u. And I'm really grateful about that.</p>
+                <p>Every moment with you feels rare. Not loud. Not perfect. Just real. We started talking and all was going good until my insecurities came into play. Jyare mne khbr pdi ke rush bhi tri sathe vat kre che tyare i was like ok and tu ek var amdavad gy ti tyare te ene vc kryu tu and jyare ene mne kidhu tyare mne bov khotu lgyu tu but me jva didhu. And mne to always evu j lgtu ke tu tara photos and all khli mne j share until i got to know that rush ne bhi e j moklvama avtu and i was jealous. Me pela ene kidhu ke please tu auchu kri nkh but ene na kryu and then one of the worst thing happened to me and u know that. But by time i was ok but i just used to feel jealous ke tu pela sathe bhi vat krti and pchi me dhime dhime auchu krva nu chlvu kri nkhyu. And then ek evo time avyo ke apde vat krvanu j bandh thy gyu. I expected ke tu pchi avis and hu rah j joto rai gyo and pelo tri sathe vat krya rkhto and vicky ni bhi entry thy gy ti. So tne mri kami emnm bhi feel na that. Pchi tara 2024 vada birthday ma bhi me vat krvani try kri but e bhi 1-2 divs chali and tu pchi gayab thy gy. Pchi pchu apde june or july 2024 ma vat kri but e bhi khli 2-3 divs mte j hti and tu pchi gayab thy gy. I always wanted ke tu vat kr but tu na krti and tri life ma already vicky hto so tne koi ni jrur noti and it's ok. And mne realise thyu ke tu mne easily replace kri ske che like agr hu kale tne muki ne vyo jav to thodak time ma hu replace thy jais. And iam not blaming u because that's how life is. </p>
+                <p>Then pcho tro birthday avyo 2025 ma and i wished u happy birthday, but te thank u bhi ek divs pchi kidhu . But this time me nkki kryu ke a vkhte tne nai java dv bhle tu varso le reply mte. Idc about my self respect all i wanted was u and tyare to mne kai feelings bhi noti but i wanted our old relation back. And we succeded. Apde dhime dhime but pchu vat krvanu chlu kri didhu. Me pcho tro trust jityo and i always tried to keep u safe. BUt then after sometime mne tara mte feelings jagi and e dhime dhime vdhti j gy. Pchi mne jealously feel thva lgi bdha thi je tri sathe vat kre only males ofc.</p>
+                <p>But i consider myself lucky ke tu mri life no ek part cho. I am always thankful to god ke apde pchi vat krvanu chlu kryu and apdo bond strong thto gyo. Me tri pela aj sudhi koi pn chokri sathe vat noti kri and koi bhi relationships bhi noto and i'm really lucky ke tu mri life ni peli female friend cho proper vadi. Apde atla time ma ketlu bdhu badhya chi ne ofc chlu krva vado hu j hov chu but still at last apde bne sathe j rai chi. Most of fights to ofc mri jealousy na karan ne j thy che. BUt apde dr vkhte sathe j end kri chi. I know ke hu nani thi nani vstu overthink kri ne moti kri nkhu chu it's because i care for u and i'll always do that only for u. Mne mara dada pchi koi mte atlo affection and love thyo hoi to e tu cho. </p>
+                <p><b>Idk ke apde sathe end krsu ke nai (u know what i'm talking about) but hu etli guarantee apu ke i'll always keep fighting for u and possibly for us. I want you to be part of my life. I want to give you every happiness you deserve. I want to travel with u , I want to do your favourite things with u and many more things.</b></p>
+                <p><b>At last i want you to always stay strong and happy not matter what the situation is. And remember I'm always with u maybe not in happiness but I'll be always with u when u're sad or feel disconnected and i promise about that. I'm really the most lucky guy to have a sweet and loving bestfriend like u.💕</b></p>
+                <p><b>I have always loved u and i'll keep loving u no matter what the situation is ❤️. Hji to ghnu kevu che but tu bhi ketlu vachi sksi so hu time by time bdhu kidha rkhis.</b></p>
+                <p><b>Hve agad me tara photos rkhya che je mne gme che but ofc tu mne bdhi rite gam but ama tu tara favorite person sathe cho and ek mro most favorite photo che and ek ma tu mri radha rani jevi lagas. And ofc hu vivu ne nthi bhulyo so enjoy your next moment.💕💕</b></p>
+                <p class="signature">Now… let me show you why. ✨</p>
+            </div>
+
+            <button class="main-btn" onclick="nextSection('message-section','gallery-section'); initGallery();">
+                Continue 🌙
+            </button>
+        </div>
+
+        <!-- GALLERY -->
+        <div id="gallery-section" class="card-container hidden animate-fade film-bg">
+            <button class="back-link-top" onclick="goBackToMusic('gallery-section')">⇠ Music</button>
+
+            <h2 class="fancy-title">Scenes I’ll Never Forget 🎞️</h2>
+            <p class="hint-text">Tap a memory to bring it into focus</p>
+
+            <div class="film-viewer">
+                <img id="film-main" src="g1.jpg">
+            </div>
+
+            <div class="film-strip" id="film-strip"></div>
+
+            <button class="main-btn" onclick="nextSection('gallery-section','cake-section')">
+                Make a Wish 🎂
+            </button>
+        </div>
+
+
+        <!-- CAKE -->
         <div id="cake-section" class="card-container hidden animate-fade">
             <button class="back-link-top" onclick="goBackToMusic('cake-section')">⇠ Music</button>
             <h2 class="fancy-title">Make a Wish, Aaru! 🎂</h2>
@@ -155,7 +217,6 @@
                         <div class="flame"></div>
                     </div>
                 </div>
-
                 <div class="cake">
                     <div class="plate"></div>
                 </div>
@@ -163,22 +224,28 @@
 
             <p id="cake-instruction">Tap the candles to blow them out! 🌬️</p>
 
-            <button id="cake-next-btn" class="main-btn hidden"
-                onclick="nextSection('cake-section', 'final-section')">Final Note ❤️</button>
+            <button id="cake-next-btn" class="main-btn hidden" onclick="nextSection('cake-section','final-section')">
+                Final Note ❤️
+            </button>
         </div>
 
+        <!-- FINAL -->
         <div id="final-section" class="card-container hidden animate-fade">
             <button class="back-link-top" onclick="goBackToMusic('final-section')">⇠ Music</button>
             <h2 class="fancy-title">Forever Yours</h2>
+
             <div class="letter-paper">
                 <p>Happy Birthday, my forever darling and cutie pie! 💕</p>
                 <p>Enjoy your special day to the fullest.</p>
+                <p><b>And I love U 💕</b> (tre je rite rkhvu hoi em but mara mte to ek j meaning che 💕)</p>
             </div>
+
             <button class="restart-btn" onclick="restartExperience()">Relive the Magic ✨</button>
         </div>
+
     </div>
+
     <script src="script.js"></script>
 </body>
 
 </html>
-
