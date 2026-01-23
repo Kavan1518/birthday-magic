@@ -246,4 +246,14 @@ window.addEventListener('load', () => {
     setTimeout(preloadAssets, 1200);
 });
 
+// --- FORCE LETTER CLICK BIND (CRITICAL FIX) ---
+window.addEventListener('DOMContentLoaded', () => {
+    const envelope = document.getElementById('envelope');
+    if (envelope) {
+        envelope.addEventListener('click', openLetter);
+    }
+});
+
+
+
 
