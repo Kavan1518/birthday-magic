@@ -16,6 +16,29 @@ const myReasons = [
 
 let currentReasonIndex = 0;
 
+function openLetter() {
+    requestAnimationFrame(() => {
+        document.getElementById('envelope').classList.add('hidden');
+        document.getElementById('letter-content').classList.remove('hidden');
+    });
+
+    const text = "My dearest Aaruu ✨, today marks another year of your incredible existence. You bring so much joy and love into this world. You deserve all the magic today! ❤️";
+    let i = 0;
+
+    document.getElementById("typewriter-text").innerHTML = "";
+
+    function type() {
+        if (i < text.length) {
+            document.getElementById("typewriter-text").innerHTML += text.charAt(i++);
+            setTimeout(type, 50);
+        } else {
+            document.getElementById("letter-btn").classList.remove("hidden");
+        }
+    }
+    type();
+}
+
+
 // 1. COUNTDOWN TIMER LOGIC
 function updateTimer() {
     const now = new Date();
@@ -204,3 +227,4 @@ window.addEventListener('load', () => {
     // preload everything silently after first paint
     setTimeout(preloadAssets, 1200);
 });
+
