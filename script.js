@@ -236,6 +236,56 @@ function celebrate() {
 
 function restartExperience() { location.reload(); }
 
+// --- MEMORY FILM STRIP GALLERY ---
+const galleryPhotos = [
+    "g1.jpeg","g2.jpeg","g3.jpeg","g4.jpeg","g5.jpeg",
+    "g6.jpeg","g7.jpeg","g8.jpeg","g9.jpeg","g10.jpeg"
+];
+
+let filmIndex = 0;
+
+function initGallery() {
+    const strip = document.getElementById('film-strip');
+    const main = document.getElementById('film-main');
+
+    strip.innerHTML = '';
+    main.src = galleryPhotos[0];
+    filmIndex = 0;
+
+    galleryPhotos.forEach((src, i) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'film-thumb';
+        thumb.style.backgroundImage = `url(${src})`;
+
+        if (i === 0) thumb.classList.add('active');
+
+        thumb.onclick = () => {
+            document.querySelectorAll('.film-thumb')
+                .forEach(t => t.classList.remove('active'));
+
+            thumb.classList.add('active');
+            main.src = src;
+            filmIndex = i;
+        };
+
+        strip.appendChild(thumb);
+    });
+
+    autoScrollFilm();
+}
+
+function autoScrollFilm() {
+    const strip = document.getElementById('film-strip');
+    let pos = 0;
+
+    setInterval(() => {
+        pos += 0.3;
+        strip.scrollLeft = pos;
+        if (pos > strip.scrollWidth) pos = 0;
+    }, 30);
+}
+
+
 // INITIALIZE
 createHearts();
 setInterval(updateTimer, 1000);
