@@ -38,6 +38,24 @@ function openLetter() {
     type();
 }
 
+// --- REASONS INIT (RESTORED – REQUIRED) ---
+function initReasons() {
+    const stack = document.getElementById('reasons-stack');
+    if (!stack) return;
+
+    stack.innerHTML = '';
+    currentReasonIndex = 0;
+
+    myReasons.forEach((reason, index) => {
+        const card = document.createElement('div');
+        card.className = 'reason-card';
+        card.style.zIndex = myReasons.length - index;
+        card.innerHTML = `<h4>${reason.title}</h4><p>${reason.desc}</p>`;
+        stack.appendChild(card);
+    });
+}
+
+
 
 // 1. COUNTDOWN TIMER LOGIC
 function updateTimer() {
@@ -227,4 +245,5 @@ window.addEventListener('load', () => {
     // preload everything silently after first paint
     setTimeout(preloadAssets, 1200);
 });
+
 
