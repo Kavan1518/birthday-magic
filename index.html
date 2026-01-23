@@ -85,7 +85,7 @@
                 <div class="vinyl-disk" id="vinyl-disk">
                     <div class="disk-grooves"></div>
                     <div class="disk-label">
-                        <video src="a6.mp4" class="disk-center-video" autoplay loop muted playsinline></video>
+                        <video class="disk-center-video" muted loop playsinline preload="none"></video>
                     </div>
                 </div>
             </div>
@@ -99,10 +99,11 @@
 
             <button class="main-btn" onclick="goToReasons()">Our Special Reasons 💖</button>
 
-            <audio id="audio0" src="song3.mp3"></audio>
-            <audio id="audio1" src="song4.mp3"></audio>
-            <audio id="audio2" src="song5.mp3"></audio>
-            <audio id="audio3" src="song1.mp3"></audio>
+           <audio id="audio0" src="song3.mp3" preload="metadata"></audio>
+           <audio id="audio1" src="song4.mp3" preload="metadata"></audio>
+           <audio id="audio2" src="song5.mp3" preload="metadata"></audio>
+           <audio id="audio3" src="song1.mp3" preload="metadata"></audio>
+
         </div>
 
         <!-- REASONS -->
@@ -249,3 +250,4 @@
 </body>
 
 </html>
+
